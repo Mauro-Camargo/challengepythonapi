@@ -18,6 +18,8 @@ Create an API using AWS services:
 
 ## 🧱 Solution Architecture
 
+![Architecture Diagram](./architecture/architecturechallenge.jpg)
+
 The solution was designed using a **serverless architecture** to ensure scalability, high availability, and cost-efficiency:
 
 - **Amazon API Gateway**: Entry point for the API, exposing endpoints for creating and retrieving the VPC.

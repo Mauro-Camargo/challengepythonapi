@@ -36,7 +36,7 @@ resource "aws_s3_object" "lambda_code_zip" {
 # This resource creates the ZIP file from your 'lambda' folder and calculates the hash
 data "archive_file" "lambda_zip_content" {
   type        = "zip"
-  source_dir  = "${path.module}/../lambda" # Folder where your Python code is located
+  source_dir  = "${path.module}/../lambda"
   output_path = "${path.module}/lambda.zip"
    # Where the ZIP file will be created
 }
