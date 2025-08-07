@@ -1,0 +1,58 @@
+name: Terraform CI/CD Challenge
+
+# Defining permissions for the workflow
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: "Terraform Actions"
+    runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_lambda_zip_filename: lambda.zip
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Install Lambda dependencies
+        run: |
+          pip install -r lambda/requirements.txt -t lambda/
+          zip -r ${{ env.TF_VAR_lambda_zip_filename }} lambda/
+      
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ./terraform
+      
+      - name: Terraform Plan
+        if: github.event_name == 'pull_request'
+        id: plan
+        run: terraform plan -input=false -out=tfplan
+        working-directory: ./terraform
+      
+      - name: Terraform Apply
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        id: apply
+        run: terraform apply -auto-approve
+        working-directory: ./terraform
