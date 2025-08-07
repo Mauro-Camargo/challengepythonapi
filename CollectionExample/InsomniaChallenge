@@ -1,0 +1,129 @@
+type: spec.insomnia.rest/5.0
+name: ChallengeExample
+meta:
+  id: wrk_623abbdc2d654f0e8075da530664d867
+  created: 1754579582696
+  modified: 1754579582696
+collection:
+  - url: https://cognito-idp.us-east-1.amazonaws.com/
+    name: 1AuthenticationToken
+    meta:
+      id: req_020db5ceabfc4a25989c6948999e4ec7
+      created: 1754579582701
+      modified: 1754579648169
+      isPrivate: false
+      sortKey: -1754494955975.25
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "AuthFlow": "USER_PASSWORD_AUTH",
+          "ClientId": "<YOUR-CLIENT-ID>",
+          "AuthParameters": {
+            "USERNAME": "challengeuser",
+            "PASSWORD": "<YOUR-PASSWORD>"
+          }
+        }
+    headers:
+      - name: Content-Type
+        value: application/x-amz-json-1.1
+        id: pair_27843b04314d40c79a19ce58da1f58c2
+      - name: User-Agent
+        value: insomnia/11.1.0
+        id: pair_cd4d1173193946ac8f2561caba87f028
+        disabled: true
+      - id: pair_b9f77c6efe2e4d3696d92d3fc23c6d54
+        name: X-Amz-Target
+        value: " AWSCognitoIdentityProviderService.InitiateAuth"
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://<YOUR-APIGATEWAY-ENDPOINT>/vpcs
+    name: 2CreateVpcAndSubnets
+    meta:
+      id: req_461df25c3bae4896b3063ff50336ce01
+      created: 1754579582701
+      modified: 1754579706908
+      isPrivate: false
+      sortKey: -1754494955875.25
+    method: POST
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+        id: pair_dc1cae92833b40a8a305e4001c0c47b1
+      - id: pair_446a5a9113d74b759289a2264dd9703e
+        name: Authorization
+        value: Bearer {% response 'body', 'req_020db5ceabfc4a25989c6948999e4ec7',
+          'b64::JC5BdXRoZW50aWNhdGlvblJlc3VsdC5JZFRva2Vu::46b', 'always', 60 %}
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://<YOUR-APIGATEWAY-ENDPOINT>/vpcs
+    name: 3GetVpcAndSubnetsInformations
+    meta:
+      id: req_b2a306aaef0f4c93af69f2b0e5a73fa9
+      created: 1754579582702
+      modified: 1754579752156
+      isPrivate: false
+      sortKey: -1754494681849.75
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+        id: pair_dc1cae92833b40a8a305e4001c0c47b1
+      - id: pair_446a5a9113d74b759289a2264dd9703e
+        name: Authorization
+        value: Bearer {% response 'body', 'req_020db5ceabfc4a25989c6948999e4ec7',
+          'b64::JC5BdXRoZW50aWNhdGlvblJlc3VsdC5JZFRva2Vu::46b', 'always', 60 %}
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_966dea02b5a24e68b2ed339fb9a9a19f
+    created: 1754579582698
+    modified: 1754579582698
+  cookies:
+    - key: XSRF-TOKEN
+      value: 4847a90f-a950-45ea-8121-917bbb8d1c91
+      domain: python-vpc-challenge-auth.auth.us-east-1.amazoncognito.com
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-08-06T14:32:19.137Z
+      lastAccessed: 2025-08-06T14:32:19.137Z
+      sameSite: lax
+      id: faccad8d-1122-4d03-a3f1-a565e051a560
+environments:
+  name: Base Environment
+  meta:
+    id: env_955bd39948544900ba1da9c2b70aa75f
+    created: 1754579582697
+    modified: 1754579582697
+    isPrivate: false
+spec:
+  meta:
+    id: spc_c50cc788b5e54c678029c5caca78f8e2
+    created: 1754579582699
+    modified: 1754579582709

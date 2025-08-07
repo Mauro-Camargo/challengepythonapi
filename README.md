@@ -107,7 +107,7 @@ The above command returns a session token. Copy it and use it in the next comman
 aws cognito-idp admin-respond-to-auth-challenge --user-pool-id <YOUR_USER_POOL_ID> --client-id <YOUR_CLIENT_ID> --challenge-name NEW_PASSWORD_REQUIRED --challenge-responses 'NEW_PASSWORD=<PutYourNewPassword>,USERNAME=challengeuser' --session "<PUT_YOUR_SESSION_TOKEN>"
 ```
 
-With this information, you can configure your HTTP client to make requests. An example Postman/Insomnia collection is available in the `collection` folder of this project.
+With this information, you can configure your HTTP client to make requests. An example Postman/Insomnia collection is available in the `CollectionExample` folder of this project.
 
 ---
 
