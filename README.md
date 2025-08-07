@@ -71,20 +71,6 @@ All resources will be created at this step.
 
 ---
 
-## 🔄 CI/CD with GitHub Actions
-
-The project uses **GitHub Actions** to automate the CI/CD workflow.
-
-### Workflow:
-
-- **Push to `develop` branch**:  
-  When you create a pull request to the `main` branch, it triggers a GitHub Action that runs `terraform plan`
-
-- **Pull request to `main` branch**:  
-  After the pull request is merged into `main`, the action runs `terraform apply` to create the infrastructure.
-
----
-
 ## 🔐 API Usage
 
 The API is protected by **Cognito authentication**. To make calls to the endpoints, you will need a **valid JWT token**.
@@ -107,7 +93,7 @@ The above command returns a session token. Copy it and use it in the next comman
 aws cognito-idp admin-respond-to-auth-challenge --user-pool-id <YOUR_USER_POOL_ID> --client-id <YOUR_CLIENT_ID> --challenge-name NEW_PASSWORD_REQUIRED --challenge-responses 'NEW_PASSWORD=<PutYourNewPassword>,USERNAME=challengeuser' --session "<PUT_YOUR_SESSION_TOKEN>"
 ```
 
-With this information, you can configure your HTTP client to make requests. An example Postman/Insomnia collection is available in the `CollectionExample` folder of this project.
+With this information, you can configure your HTTP client to make requests. An example Postman collection is available in the `CollectionExample` folder of this project.
 
 ---
 
@@ -119,3 +105,55 @@ With this information, you can configure your HTTP client to make requests. An e
 | GET    | `/vpcs`          | Retrieves the details of a specific VPC.                   |
 
 ---
+
+## 🔄 CI/CD with GitHub Actions
+
+The project uses **GitHub Actions** to automate the CI/CD workflow.
+
+### Workflow:
+
+- **Push to `develop` branch**:  
+  When you create a pull request to the `main` branch, it triggers a GitHub Action that runs `terraform plan`.
+
+- **Pull request merged into `main` branch**:  
+  After the pull request is merged into `main`, the action runs `terraform apply` to create the infrastructure.
+
+---
+
+## 🧪 How to Use the API Test Collection
+
+A test collection is available in the `CollectionExample` folder of this project. It contains predefined requests for authenticating and interacting with the API. You can import it into **Insomnia** or another API client.
+
+### 🔄 Collection Overview
+
+1. **`1AuthenticationToken`**  
+   Responsible for generating the authentication token.  
+   This request will return a JWT token if the credentials are correct. The token is required to access the protected endpoints.
+
+2. **`2CreateVpcAndSubnets`**  
+   Creates a VPC and its associated subnets.  
+   ⚠️ **Important**: Replace the `Authorization` header in this request with the token obtained from `1AuthenticationToken`.  
+   Use the format:
+   ```
+   Authorization: Bearer <your-jwt-token>
+   ```
+
+   **Example**:
+   ```
+   Authorization: Bearer eyJraWQiOiJrS0V...<rest_of_token>
+   ```
+
+3. **`3GetVpcAndSubnetsInformations`**  
+   Retrieves information about the created VPC and subnets.  
+   This request also requires the same token in the `Authorization` header.
+
+---
+
+### 🚀 How to Use It
+
+1. Open **Insomnia**.
+2. Go to **File > Import**.
+3. Select the `InsomniaChallenge` file from the `collection` folder.
+4. Start with the `1AuthenticationToken` request to generate your JWT.
+5. Copy the token and add it to the `Authorization` header of requests `2CreateVpcAndSubnets` and `3GetVpcAndSubnetsInformations`, following the `Bearer <token>` format.
+6. Send the requests and monitor the responses.
