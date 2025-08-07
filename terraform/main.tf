@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "vpc-challenge-terraform-state-mauro"
+    bucket = "api-challenge-terraform-state-mauro"
     key    = "terraform.tfstate"
     region = "us-east-1"
   }

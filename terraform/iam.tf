@@ -29,7 +29,6 @@ resource "aws_iam_role_policy" "lambda_exec_policy" {
           "ec2:CreateSubnet",
           "ec2:DescribeAvailabilityZones",
           "ec2:CreateTags",
-          "ec2:DeleteVpc",       # Adding delete permission for cleanup purposes
           "ec2:DeleteSubnet"
         ],
         Effect = "Allow",
