@@ -25,6 +25,6 @@ variable "lambda_zip_filename" {
 variable "lambda_code_bucket" {
   description = "Name of the S3 bucket where the Lambda code will be stored."
   type        = string
-  default     = "python-vpc-challenge-lambda-code-bucket"
+  default     = "python-api-challenge-lambda-code-bucket"
   
 }
