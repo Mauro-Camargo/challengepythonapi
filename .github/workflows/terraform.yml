@@ -10,9 +10,11 @@ on:
   push:
     branches:
       - main
+      - develop  # Adiciona a branch develop para o gatilho de push
   pull_request:
     branches:
       - main
+      - develop  # Adiciona a branch develop para o gatilho de pull_request
 
 jobs:
   terraform:
